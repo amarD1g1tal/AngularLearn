@@ -1,0 +1,75 @@
+<form autocomplete="off" #form="ngForm" (ngSubmit)="processForm(form.value);form.reset();">
+  <fieldset>
+    <legend>Car Info</legend>
+    <div class="row">
+        <div class="form-group col-md-6">
+          <input type="hidden" [(ngModel)]="car.id" name="id">
+          <label for="brand">Brand:</label>
+            <input class="form-control" type="text" [(ngModel)]="car.brand" #brand="ngModel" id="brand" minlength="3" maxlength="50" name="brand" required>
+            <div *ngIf="brand.invalid && brand.dirty" class="text-danger">Brand could not be empty</div>
+        </div>
+
+    
+        <div class="form-group col-md-6">
+            <label for="model">Model:</label>
+            <input type="text" name="model" [(ngModel)]="car.model" #model="ngModel" id="model" minlength="3" maxlength="50" class="form-control" required>
+            <div *ngIf="model.invalid && model.dirty" class="text-danger">Model could not be empty</div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    
+    <div class="row">
+      <div class="form-group col-md-4">
+          <label for="year">Year:</label>
+          <input type="number" name="year" [(ngModel)]="car.year" #year="ngModel" id="year" class="form-control" required>
+          <div *ngIf="model.invalid && model.dirty" class="text-danger">Model could not be empty</div>
+      </div>
+    
+      <div class="form-group col-md-4">
+          <label for="price">Price:</label>
+          <input type="number" name="price" [(ngModel)]="car.price" #price="ngModel" id="price" class="form-control" required>
+          <div *ngIf="model.invalid && model.dirty" class="text-danger">Model could not be empty</div>
+      </div>
+    
+      <div class="form-group col-md-4">
+          <label for="km">Kilometer:</label>
+          <input type="number" name="km" [(ngModel)]="car.km" #km="ngModel" id="km" class="form-control" required>
+          <div *ngIf="model.invalid && model.dirty" class="text-danger">Model could not be empty</div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </fieldset>
+
+  <fieldset ngModelGroup="engine">
+    <legend>Engine Info</legend>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label for="fuel"></label>
+        <select name="fuel" [(ngModel)]="car.engine.fuel" #fuel="ngModel" id="fuel" class="form-control" required>
+          <option value="">Select Fuel Type</option>
+          <option value="petrol">Petrol</option>
+          <option value="diesel">Diesel</option>
+          <option value="electric">Electric</option>
+        </select>
+      </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+        <label for="power">Power:</label>
+      <input type="number" name="power" [(ngModel)]="car.engine.power" max="200" #power="ngModel" id="power" class="form-control" required>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="consumption">Consumption:</label>
+        <input type="number" name="consumption" [(ngModel)]="car.engine.consumption" max="20" #consumption="ngModel" id="consumption" class="form-control" required>
+    </div>
+  </div>
+  </fieldset>
+  
+  <div class="btn-group">
+    <button class="btn btn-primary" [disabled]="form.invalid" type="submit">{{isAddAction(car.id) ? 'Add Car' : 'Edit Car'}}</button>
+    <button class="btn btn-danger ml-2" type="reset">Reset</button>
+  </div>
+
+</form>
+
+{{form.value | json}}
